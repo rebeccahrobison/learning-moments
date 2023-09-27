@@ -1,0 +1,51 @@
+.posts-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 1 100%;
+}
+
+.posts {
+    width: 75%;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    border: green solid 2px;
+    border-radius: 5px;;
+    margin: 5px;
+    padding: 5px;
+    flex-basis: 1 100%;
+}
+
+.post-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.post-title {
+    font-weight: bold;
+}
+
+.post-topic {
+    font-style: italic;
+}
+
+.post-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter-bar {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    width: 75%;
+}
+
+.filter-topic {
+    display: flex;
+}
