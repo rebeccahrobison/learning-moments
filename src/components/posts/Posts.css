@@ -4,6 +4,8 @@
     justify-content: center;
     align-items: center;
     flex-basis: 1 100%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color:antiquewhite;
 }
 
 .posts {
@@ -13,11 +15,12 @@
 .post {
     display: flex;
     flex-direction: column;
-    border: green solid 2px;
+    border: darkgreen solid 2px;
     border-radius: 5px;;
     margin: 5px;
     padding: 5px;
     flex-basis: 1 100%;
+    background-color: aliceblue;
 }
 
 .post-header {

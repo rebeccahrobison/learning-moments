@@ -1,0 +1,30 @@
+.navbar {
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: rgb(69, 90, 69);
+  margin: 0;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.navbar-item {
+  flex-basis: 20%;
+  list-style-type: none;
+  text-align: center;
+  color: rgb(252, 250, 230);
+}
+
+.navbar-link {
+  text-decoration: none;
+  list-style-type: none;
+  color:rgb(252, 250, 230);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.navbar-logout {
+  margin-left: auto;
+}
+
+.navbar-link:hover {
+  color: orange;
+}

@@ -3,3 +3,9 @@ export const getAllPosts = () => {
         (res) => res.json()
     )
 }
+
+export const getPostById = (id) => {
+    return fetch(`http://localhost:8088/posts?id=${id}&_expand=topic&_expand=user`).then(
+        (res) => res.json()
+    )
+}

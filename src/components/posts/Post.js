@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getUserPostLikes } from "../../services/getUserPostLikes"
+import { Link } from "react-router-dom"
 
 export const Post = ({ post }) => {
     const [likes, setLikes] = useState([])
@@ -21,7 +22,9 @@ export const Post = ({ post }) => {
     return (
         <section className="post">
             <header className="post-header">
-                <div className="post-title">{post.title}</div>
+                <div className="post-title">
+                    <Link to={`/post/${post.id}`}>{post.title}</Link>
+                </div>
                 <div className="post-topic">{post.topic.name}</div>
             </header>
             <div className="post-info">
