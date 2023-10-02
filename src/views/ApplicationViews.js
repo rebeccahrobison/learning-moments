@@ -3,6 +3,8 @@ import { AllPosts } from "../components/posts/AllPosts"
 import { Route, Routes, Outlet } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { PostDetails} from "../components/posts/PostDetails"
+import { NewPost } from "../components/posts/NewPost"
+import { MyPosts } from "../components/posts/MyPosts"
 
 export const ApplicationViews = () => {
   const [currentUser, setCurrentUser] = useState({})
@@ -25,9 +27,11 @@ export const ApplicationViews = () => {
       >
         <Route index element={<AllPosts /> } />
         <Route path="post">
-          <Route index element={<AllPosts/>} />
+          <Route index element={<AllPosts />} />
           <Route path=":postId" element={<PostDetails />} />
         </Route>
+        <Route path="newpost" element={<NewPost />} />
+        <Route path="myposts" element={<MyPosts />} />
       </Route>
     </Routes>
   )
