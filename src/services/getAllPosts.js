@@ -17,7 +17,6 @@ export const getPostByUserId = (userId) => {
 }
 
 export const createNewPost = (post) => {
-    console.log(post)
     return fetch("http://localhost:8088/posts", {
         method: "POST",
         headers: {
@@ -25,5 +24,13 @@ export const createNewPost = (post) => {
         },
         body: JSON.stringify(post),
     })
-    
+}
+
+export const deletePost = (post) => {
+    return fetch(`http://localhost:8088/posts/${post.id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
 }

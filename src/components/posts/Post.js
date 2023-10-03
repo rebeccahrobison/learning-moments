@@ -2,6 +2,11 @@ import { useEffect, useState } from "react"
 import { getUserPostLikes } from "../../services/getUserPostLikes"
 import { Link } from "react-router-dom"
 
+const convertDate = (date) => {
+    const utcDate = new Date(date)
+    return utcDate.toLocaleString()
+}
+
 export const Post = ({ post }) => {
     const [likes, setLikes] = useState([])
     const [postLikes, setPostLikes] = useState([])
@@ -29,7 +34,7 @@ export const Post = ({ post }) => {
             </header>
             <div className="post-info">
                 <div className="post-likes">&#9734; {postLikes.length}</div>
-                <div className="post-name">Posted by {post.user.name} on {post.date}</div>
+                <div className="post-name">Posted by {post.user.name} on {convertDate(post.date)}</div>
             </div>
         </section>
     )

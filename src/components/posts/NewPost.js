@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { getTopics } from "../../services/getTopics"
 import "./Posts.css"
 import { createNewPost } from "../../services/getAllPosts"
@@ -8,6 +9,8 @@ export const NewPost = () => {
   const [chosenTopic, setChosenTopic] = useState({})
   const [chosenTitle, setChosenTitle] = useState("")
   const [chosenBody, setChosenBody] = useState("")
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     getTopics().then((topicsArr) => {
@@ -39,9 +42,16 @@ export const NewPost = () => {
       userId: parseInt(localStorage.getItem('learning_user').slice(6, 7))
     }
 
-    console.log(newPost)
+    if(newPost.title == "" || newPost.body == "" || newPost.topicId == undefined) {
+      window.alert(`Please fill out all fields`)
+    } else {
+      createNewPost(newPost).then(() => {
+        navigate(`/myposts`)
+      })
+    }
+    // console.log(newPost)
 
-    createNewPost(newPost).then()
+    
     //TODO Navigate to the My Posts view
   }
 
@@ -56,6 +66,7 @@ export const NewPost = () => {
           <h2 className="topic">Topic</h2>
           <select
             name="topics"
+            required
             id="topics"
             onChange={(event) => {
               if (event.target.value === 0) {
@@ -66,7 +77,7 @@ export const NewPost = () => {
                 console.log(foundTopic)
               }
             }}>
-            <option className="newpost-topic" value="0">Choose a Topic</option>
+            <option required className="newpost-topic" value="0">Choose a Topic</option>
             {allTopics.map((topic) => {
               return (<option
                 className="newpost-topic"
