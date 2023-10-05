@@ -1,0 +1,30 @@
+.editpost-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editpost-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: rgb(153, 185, 146);
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.editpost-header {
+  font-size: 1.3rem;
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+}
+
+.editpost-title {
+  display: flex;
+}
+
+.title {
+  margin: 0 8px 0 0 ;
+}

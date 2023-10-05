@@ -1,7 +1,7 @@
 import "./Posts.css"
 import { useState, useEffect } from "react"
 import { getPostById } from "../../services/getAllPosts"
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import { getLikesByPostId, saveUserPostLike } from "../../services/getUserPostLikes"
 
 export const PostDetails = () => {
@@ -17,6 +17,8 @@ export const PostDetails = () => {
   })
   const [postLikes, setPostLikes] = useState({})
   const { postId } = useParams()
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     getPostById(postId).then(data => {
@@ -76,8 +78,13 @@ export const PostDetails = () => {
       </section>
       {(() => {
         if(isPostByCurrentUser()) {
-          return (<button className="edit-post">Edit Post</button>)
-          //TODO Navigate to Edit Post view
+          return (<button 
+            className="edit-post"
+            onClick={() => {
+              navigate(`/modify-post/${post.id}`)
+            }}
+              >Edit Post
+            </button>)
         }
       })()}
     </div>

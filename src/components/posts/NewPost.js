@@ -1,22 +1,16 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getTopics } from "../../services/getTopics"
 import "./Posts.css"
 import { createNewPost } from "../../services/getAllPosts"
+import { SelectTopic } from "./SelectTopic"
 
 export const NewPost = () => {
-  const [allTopics, setAllTopics] = useState([])
   const [chosenTopic, setChosenTopic] = useState({})
   const [chosenTitle, setChosenTitle] = useState("")
   const [chosenBody, setChosenBody] = useState("")
+  const [post, setPost] = useState({post: { topicId: 0}})
 
   const navigate = useNavigate()
-
-  useEffect(() => {
-    getTopics().then((topicsArr) => {
-      setAllTopics(topicsArr)
-    })
-  }, [])
 
   useEffect(() => {
     if(chosenTitle) {
@@ -49,47 +43,26 @@ export const NewPost = () => {
         navigate(`/myposts`)
       })
     }
-    // console.log(newPost)
-
-    
-    //TODO Navigate to the My Posts view
   }
 
+  const handleInputChange = (event, topicId) => {
+    const stateCopy = {...post}
+    stateCopy[event.target.name] = event.target.value
+    setPost(stateCopy)
+  }
 
-
+  const currentTopic = () => {
+    return post.topicId
+  }
 
   return (
     <form className="newpost-container">
-      <div className="newpost-header"><header className="header">Edit Post</header></div>
+      <div className="newpost-header"><header className="header">Create New Post</header></div>
       <div className="newpost-info">
-        <div className="newpost-topics">
-          <h2 className="topic">Topic</h2>
-          <select
-            name="topics"
-            required
-            id="topics"
-            onChange={(event) => {
-              if (event.target.value === 0) {
-                setChosenTopic(null)
-              } else {
-                const foundTopic = allTopics.find((topic) => topic.id === parseInt(event.target.value))
-                setChosenTopic(foundTopic)
-                console.log(foundTopic)
-              }
-            }}>
-            <option required className="newpost-topic" value="0">Choose a Topic</option>
-            {allTopics.map((topic) => {
-              return (<option
-                className="newpost-topic"
-                required
-                key={topic.id}
-                value={topic.id}
-              >
-                {topic.name}
-              </option>)
-            })}
-          </select>
-        </div>
+        <SelectTopic 
+          setChosenTopic={setChosenTopic} 
+          currentTopic={currentTopic()}
+          handleInputChange={handleInputChange} />
         <div className="newpost-title">
           <h2 className="title">Title</h2>
           <input
