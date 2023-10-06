@@ -4,7 +4,7 @@ import { getPostById } from "../../services/getAllPosts"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { getLikesByPostId, saveUserPostLike } from "../../services/getUserPostLikes"
 
-export const PostDetails = () => {
+export const PostDetails = ({ currentUser }) => {
   const [post, setPost] = useState({
     topic: {
       title: ""
@@ -15,7 +15,7 @@ export const PostDetails = () => {
     },
     userId: 0
   })
-  const [postLikes, setPostLikes] = useState({})
+  const [postLikes, setPostLikes] = useState([])
   const { postId } = useParams()
 
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ export const PostDetails = () => {
     getPostById(postId).then(data => {
       const postObj = data[0]
       setPost(postObj)
-      console.log(postObj)
+      // console.log(postObj)
     })
   }, [postId])
 
@@ -32,13 +32,33 @@ export const PostDetails = () => {
     getLikesByPostId(postId).then(data => {
       const likesObj = data
       setPostLikes(likesObj)
-      console.log(likesObj)
+      // console.log(likesObj)
     })
   }, [postId])
 
   const isPostByCurrentUser = () => {
     const userId = localStorage.getItem('learning_user').slice(6,7)
     return (parseInt(userId) === parseInt(post.user.id))
+  }
+
+  const isPostLiked = (post) => {
+    const userLikes = postLikes.filter(like => like.userId === currentUser.id)
+    console.log(userLikes)
+    console.log(post.userId)
+    const postLiked = userLikes.find(like => like.postId === post.id)
+    console.log(postLiked)
+    return postLiked
+  }
+
+  const handleSaveUserPostLike = (post) => {
+    const postLiked = isPostLiked(post)
+    if (postLiked) {
+      console.log("post already liked")
+    }
+    if(!postLiked) {
+      saveUserPostLike(post)
+      navigate(`/favorites`)
+    }
   }
 
 
@@ -56,24 +76,28 @@ export const PostDetails = () => {
               // const userId = localStorage.getItem('learning_user').slice(6,7)
               if (isPostByCurrentUser()) {
                 return (<i style={{fontSize: "1.5rem"}}>&#9734;</i>)
-              } else {
+              } else if(isPostLiked(post)) {
+                console.log(isPostLiked(post))
+                return (<button className="liked">&#9734;</button>)
+              }else {
                 return (
-                  <Link 
+                  <div 
                     to=""
                     className="like-link"
                     onClick={() => {
-                      saveUserPostLike(post)
-                      // TODO Navigate to Favorites
+                      handleSaveUserPostLike(post)
                     }}
                   >
                     <button className="like-button">&#9734;</button>
-                  </Link>
+                  </div>
                 )
               }
             })()}
             {postLikes.length}
           </div>
-          <div className="post-name">Posted by {post.user.name} at {post.date}</div>
+          <div className="post-name">
+            Posted by <Link to={`/profile/${post.userId}`}>{post.user.name}</Link> at {post.date}
+          </div>
         </div>
       </section>
       {(() => {

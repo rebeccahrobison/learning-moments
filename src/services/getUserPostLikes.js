@@ -23,7 +23,15 @@ export const saveUserPostLike = (post) => {
         },
         body: JSON.stringify(userPostLike),
     }).then((res) => res.json())
-    
+}
+
+export const deleteLike = (like) => {
+    return fetch(`http://localhost:8088/userPostLikes/${like.id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
 }
 
 

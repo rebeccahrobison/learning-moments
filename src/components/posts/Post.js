@@ -19,7 +19,7 @@ export const Post = ({ post }) => {
 
     useEffect(() => {
         const foundLike = likes.filter(
-            (like) => like.postId === post.id
+            (like) => like.postId === post?.id
         )
         setPostLikes(foundLike)
     }, [post, likes])
@@ -28,13 +28,13 @@ export const Post = ({ post }) => {
         <section className="post">
             <header className="post-header">
                 <div className="post-title">
-                    <Link to={`/post/${post.id}`}>{post.title}</Link>
+                    <Link to={`/post/${post?.id}`}>{post?.title}</Link>
                 </div>
-                <div className="post-topic">{post.topic.name}</div>
+                <div className="post-topic">{post?.topic.name}</div>
             </header>
             <div className="post-info">
                 <div className="post-likes">&#9734; {postLikes.length}</div>
-                <div className="post-name">Posted by {post.user.name} on {convertDate(post.date)}</div>
+                <div className="post-name">Posted by {post?.user.name} on {convertDate(post?.date)}</div>
             </div>
         </section>
     )
