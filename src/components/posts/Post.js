@@ -34,7 +34,7 @@ export const Post = ({ post }) => {
             </header>
             <div className="post-info">
                 <div className="post-likes">&#9734; {postLikes.length}</div>
-                <div className="post-name">Posted by {post?.user.name} on {convertDate(post?.date)}</div>
+                <div className="post-name">Posted by <Link to={`/profile/${post.userId}`}>{post?.user.name}</Link> on {convertDate(post?.date)}</div>
             </div>
         </section>
     )
